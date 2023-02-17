@@ -44,7 +44,7 @@ export const verifyJWT = async (token: string) => {
 }
 
 // JWT Data Structure
-export const genJWT = (audience: string, action: string, scope: string) => {
+export const genJWT = async (audience: string, action: string, scope: string) => {
     const data = { issuer: process.env.DATA_API_URL, audience: audience, action: action, scope: scope }
     return data
 }

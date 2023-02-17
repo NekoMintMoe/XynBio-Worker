@@ -9,11 +9,12 @@
   },
   "private": true,
   "scripts": {
-    "start": "wrangler dev",
+    "start": "wrangler dev --local",
     "deploy": "wrangler publish",
     "test": "vitest"
   },
   "dependencies": {
-    "jose": "^4.12.0"
+    "jose": "^4.12.0",
+    "worktop": "^0.7.3"
   }
 }

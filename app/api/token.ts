@@ -1,23 +1,19 @@
 // GenerateJWT and VerifyJWT
+import { Handler } from "worktop"
 import { genJWT, signJWT, verifyJWT } from "../../lib/auth"
 import { checkEnvInit } from "../../lib/init"
-import { commonResponse, jsonResponse } from "../../lib/utils"
+import { jsonResponse, commonResponse } from "../../lib/utils"
 
-
-export default async function handleRequest(req: Request) {
-    if (!checkEnvInit()) return await commonResponse(500)
-    if (req.method != "POST") return await commonResponse(405)
+export const jwtHandler: Handler = async function (req, res) {
+    if (!await checkEnvInit()) return await commonResponse(res, 500)
+    if (req.method != "POST") return await commonResponse(res, 405)
 
     const auth = req.headers.get("Authorization")?.replace("Bearer ", "") || ""
 
-    if (!auth) return await commonResponse(401)
-    if (await verifyJWT(auth) != "valid") return await commonResponse(401)
+    if (!auth) return await commonResponse(res, 401)
+    if (await verifyJWT(auth) != "valid") return await commonResponse(res, 401)
 
     const data = genJWT("XynBio-Next", "Generate JWT", "api")
     const jwt = await signJWT(data, "1h");
-    return await jsonResponse(200, { data: data, jwt: jwt });
-}
-
-addEventListener("fetch", (event) => {
-    event.respondWith(handleRequest(event.request));
+    return await jsonResponse(res, 200, { data: data, jwt: jwt })
 }

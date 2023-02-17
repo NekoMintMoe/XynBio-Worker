@@ -1,4 +1,4 @@
-export const checkEnvInit = () => {
+export const checkEnvInit = async () => {
     if (!process.env.DATA_API_URL) {
         console.log("DATA_API_URL not set")
         return false
