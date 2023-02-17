@@ -10,7 +10,7 @@ API.prepare = preflight({
 	methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE']
 });
 
-API.add('GET', '/*', HelloEndpoint.DefaultPage)
+API.add('GET', '/*', HelloEndpoint.defaultPage)
 API.add('GET', '/api/hello', HelloEndpoint.helloHandler)
 API.add('POST', '/api/token', TokenEndpoint.jwtHandler)
 
