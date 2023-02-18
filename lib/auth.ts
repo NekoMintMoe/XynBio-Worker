@@ -32,7 +32,7 @@ export const verifyJWT = async (token: string) => {
     if (!jwt) {
         return "invalid"
     }
-    if (jwt.payload.issuer !== DATA_API_URL) {
+    if (jwt.payload.issuer !== NEXT_WEB_URL) {
         return "invalid"
     }
     const jwtExp = jwt.payload.exp??0

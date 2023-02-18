@@ -4,4 +4,5 @@ compatibility_date = "2023-02-16"
 
 [vars]
 JWT_SECRET="ExampleJwtSecret"
+NEXT_WEB_URL="https://www.xyn.bio"
 DATA_API_URL="https://data.xyn.bio"
