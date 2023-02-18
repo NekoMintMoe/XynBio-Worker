@@ -1,11 +1,9 @@
 // GenerateJWT and VerifyJWT
 import { Handler } from "worktop"
 import { genJWT, signJWT, verifyJWT } from "../../lib/auth"
-import { checkEnvInit } from "../../lib/init"
 import { jsonResponse, commonResponse } from "../../lib/utils"
 
 export const jwtHandler: Handler = async function (req, res) {
-    if (!await checkEnvInit()) return await commonResponse(res, 500)
     if (req.method != "POST") return await commonResponse(res, 405)
 
     const auth = req.headers.get("Authorization")?.replace("Bearer ", "") || ""
