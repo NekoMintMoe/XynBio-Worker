@@ -10,7 +10,7 @@
 
 ### Start this project
 
-···
+```
 yarn add -g wrangler
 yarn start
 ```
