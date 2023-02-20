@@ -4,7 +4,6 @@ import { SignJWT, jwtVerify } from 'jose'
 // SignJWT using jose kit
 export const signJWT = async (payload: any, expTime: string) => {
     if (!JWT_SECRET) {
-        console.log("JWT_SECRET not set")
         return 'JWT_SECRET not set'
     }
     const jwt = await new SignJWT(payload)
@@ -21,7 +20,6 @@ export const decodeJWT = async (token: string) => {
         const jwt = await jwtVerify(token, new TextEncoder().encode(JWT_SECRET))
         return jwt
     } catch (error) {
-        if (!JWT_SECRET) console.log("JWT_SECRET not set")
         return false
     }
 }
