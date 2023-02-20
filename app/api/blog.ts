@@ -1,7 +1,9 @@
-import { commonResponse, jsonResponse } from '../../lib/utils'
+import { commonResponse, jsonResponse, jwtDetect } from '../../lib/utils'
 import { Handler } from 'worktop'
 
 export const BlogListHandler: Handler = async function (req, res) {
+    if (!await jwtDetect(req)) return await commonResponse(res, 401)
+    
     const metadata = {
       title: 'Hello World',
       subtitle: 'This is a subtitle',
@@ -18,9 +20,10 @@ export const BlogListHandler: Handler = async function (req, res) {
     }
   
     return await jsonResponse(res, 200, data)
-  }
+}
   
 export const BlogContentHandler: Handler = async function (req, res) {
+    if (!await jwtDetect(req)) return await commonResponse(res, 401)
     const slug = req.params.slug
 
     const metadata = {
@@ -48,6 +51,7 @@ export const BlogContentHandler: Handler = async function (req, res) {
 }
 
 export const BlogCommentHandler: Handler =  async function (req, res){
+    if (!await jwtDetect(req)) return await commonResponse(res, 401)
     const slug = req.params.slug
 
     const metadata = {

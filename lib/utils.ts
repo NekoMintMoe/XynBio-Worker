@@ -1,3 +1,5 @@
+import { verifyJWT } from "./auth"
+
 export async function jsonResponse (res: any, code: number, data: any) {
   return res.send(
     code,
@@ -27,4 +29,11 @@ export async function commonResponse (res: any, code: number) {
     case 405:
       return jsonResponse(res, 405, { code: 405, message: 'Method Not Allowed' })
   }
+}
+
+export async function jwtDetect (req: any) {
+  const auth = req.headers.get("Authorization")?.replace("Bearer ", "") || ""
+  if (!auth) return false
+  if (await verifyJWT(auth) != "valid") return false
+  return true
 }
