@@ -1,8 +1,10 @@
 name = "xynbio-worker"
 main = "src/routes.ts"
 compatibility_date = "2023-02-16"
+node_compat = true
 
 [vars]
 JWT_SECRET="ExampleJwtSecret"
 NEXT_WEB_URL="https://www.xyn.bio"
 DATA_API_URL="https://data.xyn.bio"
+SUB_DIR_NAME="XynBio-Archive"
