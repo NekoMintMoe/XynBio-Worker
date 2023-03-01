@@ -37,3 +37,16 @@ export async function jwtDetect (req: any) {
   if (await verifyJWT(auth) != "valid") return false
   return true
 }
+
+export async function ghGetReq(url: string) {
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/vnd.github+json",
+      "Authorization": "Bearer " + GITHUB_TOKEN,
+      "X-GitHub-Api-Version": "2022-11-28",
+      'User-Agent': 'request',
+    },
+  })
+  return response
+}

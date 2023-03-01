@@ -5,6 +5,7 @@ node_compat = true
 
 [vars]
 JWT_SECRET="ExampleJwtSecret"
+GITHUB_TOKEN="YourGitHubToken"
 NEXT_WEB_URL="https://www.xyn.bio"
 DATA_API_URL="https://data.xyn.bio"
-SUB_DIR_NAME="XynBio-Archive"
+ARCHIVE_REPO="XynBio/XynBio-Archive"

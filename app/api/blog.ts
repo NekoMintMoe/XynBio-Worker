@@ -1,16 +1,18 @@
-import { commonResponse, jsonResponse, jwtDetect } from '../../lib/utils'
+import { commonResponse, getReqJsonData, ghGetReq, jsonResponse, jwtDetect } from '../../lib/utils'
 import { Handler } from 'worktop'
-import * as fs from 'fs'
-import * as matter from 'gray-matter';
+import matter from 'gray-matter';
 
 export const BlogListHandler: Handler = async function (req, res) {
     //if (!await jwtDetect(req)) return await commonResponse(res, 401)
 
-    const files = fs.readdirSync(SUB_DIR_NAME + '/posts/blog')
-    const blogs = files.map((fileName) => {
+    const fileList = await (await ghGetReq(`https://api.github.com/repos/${ARCHIVE_REPO}/contents/posts/blog`)).json()
+    const fslJson = JSON.parse(JSON.stringify(fileList))
+    const blogs = fslJson.map(async (fileJson: any) => {
+        const fileName = fileJson.name
         const slug = fileName.replace('.md', '')
-        const readFile = fs.readFileSync(SUB_DIR_NAME + '/posts/blog/' + fileName, 'utf8')
-        const origmeta = matter(readFile).data
+        const fileContent = await (await ghGetReq(`https://github.com/${ARCHIVE_REPO}/raw/main/posts/blog/${fileName}`)).text()
+        const origmeta = matter(fileContent).data
+        console.log(fileContent)
         const link = NEXT_WEB_URL + '/blog/' + slug
         const metadata = {
             title: origmeta.title,
@@ -21,9 +23,9 @@ export const BlogListHandler: Handler = async function (req, res) {
             slug: slug,
         }
         const DataArray = { link: link, metadata: metadata }
-        return DataArray
+        return fileContent
     })
-    console.log(blogs)
+    console.log(await blogs)
     const data = {
       code: 200,
       data: "1"
