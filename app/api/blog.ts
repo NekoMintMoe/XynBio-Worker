@@ -12,7 +12,6 @@ export const BlogListHandler: Handler = async function (req, res) {
         const slug = fileName.replace('.md', '')
         const fileContent = await (await ghGetReq(`https://github.com/${ARCHIVE_REPO}/raw/main/posts/blog/${fileName}`)).text()
         const origmeta = matter(fileContent).data
-        console.log(fileContent)
         const link = NEXT_WEB_URL + '/blog/' + slug
         const metadata = {
             title: origmeta.title,
@@ -22,8 +21,9 @@ export const BlogListHandler: Handler = async function (req, res) {
             keyword: origmeta.keyword,
             slug: slug,
         }
+        console.log(metadata)
         const DataArray = { link: link, metadata: metadata }
-        return fileContent
+        return metadata
     })
     console.log(await blogs)
     const data = {
