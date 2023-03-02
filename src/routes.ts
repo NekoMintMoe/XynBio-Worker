@@ -11,7 +11,7 @@ API.prepare = preflight({
 	methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE']
 });
 
-API.add('GET', '/*', HelloEndpoint.defaultPage)
+API.add('GET', '/', HelloEndpoint.defaultPage)
 API.add('GET', '/api/hello', HelloEndpoint.helloHandler)
 API.add('GET', '/api/blog', BlogEndpoint.BlogListHandler)
 API.add('GET', '/api/blog/:slug', BlogEndpoint.BlogContentHandler)
