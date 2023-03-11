@@ -18,4 +18,4 @@ API.add('GET', '/api/blog/:slug', BlogEndpoint.BlogContentHandler)
 API.add('GET', '/api/blog/:slug/comments', BlogEndpoint.BlogCommentHandler)
 API.add('POST', '/_sudo/token', TokenEndpoint.jwtHandler)
 
-listen(API.run);
+listen(API.run)

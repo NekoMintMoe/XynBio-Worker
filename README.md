@@ -3,6 +3,7 @@
 - NodeJS 18(16+)
 - CloudFlare Wrangler
 - Yarn Global
+- Fauna Database
 
 ### API Documents
 
